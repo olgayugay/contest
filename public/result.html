@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <link href="style.css" rel="stylesheet"/>
+  <title>
+   Entry received
+  </title>
+ </head>
+ <body>
+  <main class="section" style="max-width:650px;text-align:center;padding-top:120px">
+   <h1>
+    🎉 Thank you for entering!
+   </h1>
+   <p>
+    Your idea is recorded. The organisers will review it.
+   </p>
+   <a class="button" href="/">
+    Back to the contest
+   </a>
+  <p id="reference"></p>
+  </main>
+ <script>const ref = new URLSearchParams(location.search).get("ref"); if(ref && /^[a-f0-9-]{36}$/.test(ref)) document.querySelector("#reference").textContent = "Reference: " + ref;</script>
+ </body>
+</html>

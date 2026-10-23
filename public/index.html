@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Responsible Analytics Contest | Enter your idea</title>
+<link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+<header>
+<a class="brand" href="#top"><span class="mark">R●A</span>Responsible Analytics Contest</a>
+<nav>
+<a href="#how">
+     How it works
+    </a>
+<a href="#submit">
+     Enter idea
+    </a>
+</nav>
+</header>
+<main id="top">
+<section class="hero">
+<div class="eyebrow">IDEA &amp; AI CONTEST · 2026</div>
+<h1>Your Idea Can Make a <em>Real Impact!</em></h1>
+<p>Find a real-world problem. Explore how AI or analytics can help. Turn your idea into action!</p>
+<a class="button" href="#submit">Enter your idea →</a>
+<div class="info">
+<span>📅 Round 1 closes: Monday, 26 October 2026 · 10:00 (Tashkent time)</span>
+<span>
+      👥 Individual or team (1–3)
+     </span>
+<span>🏆 Final pitches: 28 October</span>
+</div>
+</section>
+<section class="section" id="how">
+<h2>
+     How to take part
+    </h2>
+<div class="steps">
+<article>
+<b>
+       01
+      </b>
+<h3>Pick a real problem</h3>
+<p>Example: People wait too long in the lunch queue.</p>
+</article>
+<article>
+<b>
+       02
+      </b>
+<h3>
+       Explain your idea
+      </h3>
+<p>Example: Count busy hours and use a chart to plan how many meals to prepare.</p>
+</article>
+<article>
+<b>
+       03
+      </b>
+<h3>
+       Enter your idea
+      </h3>
+<p>Explain your plan in plain language. No working app is needed.</p>
+</article>
+</div>
+</section>
+<section class="section submit" id="submit">
+<div class="intro">
+<span class="eyebrow">
+      ROUND 1 · IDEA ENTRY
+     </span>
+<h2>
+      Enter your idea
+     </h2>
+<p>No working app or advanced analysis needed for Round 1. A clear, practical idea is enough.</p>
+<div class="example">
+<strong>Example: Cut food waste at the canteen</strong>
+<p>Compare the number of meals prepared and eaten each day, then plan how many meals may be needed next time.</p>
+</div>
+</div>
+<form action="/.netlify/functions/entry" enctype="multipart/form-data" method="POST" id="entry-form">
+
+<p class="hidden">
+<label>
+       Do not fill this out
+       <input name="bot-field"/>
+</label>
+</p>
+<div class="two">
+<label>
+Full name
+<span>
+        *
+       </span>
+<input autocomplete="name" name="full-name" placeholder="e.g. Alex Karimov" required=""/>
+</label>
+<label>
+Phone number
+<span>
+        *
+       </span>
+<input autocomplete="tel" name="phone" placeholder="e.g. +998 90 123 45 67" type="tel"/>
+</label>
+</div>
+<label>
+Name your idea
+<span>
+       *
+      </span>
+<input maxlength="120" name="project-title" placeholder="e.g. Quicker lunch queues" required=""/>
+</label>
+<label>
+Your idea
+<span>
+       *
+      </span>
+<small>Answer the four quick questions below. Use the examples if you need ideas.</small>
+<div class="questions"><p><b>1. What is the problem?</b><br/><span>Example: Long queues at the university canteen.</span></p><p><b>2. How could numbers or AI help, and how will you make it work?</b><br/><span>Example: Count people in line at various hours. Make a chart in Excel to find the busiest time.</span></p><p><b>3. Who would benefit?</b><br/><span>Example: People buying lunch and the canteen team.</span></p><p><b>4. How will you protect privacy and keep results fair?</b><br/><span>Example: Count people without recording names or photos. Check busy hours across the whole week.</span></p></div>
+<textarea id="description" maxlength="2000" name="description" placeholder="Write a few lines for each question. You may use the canteen example as a guide." required="" rows="6"></textarea>
+<small id="count">
+       0 / 2000 characters
+      </small>
+</label>
+<details>
+<summary>Add a link or upload a file (optional)</summary>
+<label>Link to your work (optional)<input name="project-link" placeholder="e.g. https://drive.google.com/..." type="text"/>
+</label>
+<label>Upload a file (optional, up to 3 MB)<input accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.png,.jpg,.jpeg,.zip" id="file" name="project-file" type="file"/>
+</label>
+<small id="file-message">Example: a PDF, PowerPoint, Word file, Excel file or image.</small>
+</details>
+<label class="consent">
+<input name="consent" required="" type="checkbox" value="yes"/>
+      I agree that organisers may use my details to manage this contest and contact me about my entry.
+     </label>
+<p id="entry-error" class="fine" role="alert" aria-live="polite"></p>
+<button class="button" type="submit">
+      Enter my idea →
+     </button>
+<p class="fine">Keep names, phone numbers, private records and other personal information out of your project.</p>
+</form>
+</section>
+</main>
+<footer>Responsible Analytics Contest · 2026</footer>
+<script src="script.js">
+</script>
+</body>
+</html>
