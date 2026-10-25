@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Participant Names | PTU Analytics Contest</title>
+  <style>
+    :root {font-family:system-ui,-apple-system,'Segoe UI',sans-serif;color:#172c39;background:#f5f8fb}
+    * {box-sizing:border-box} body {margin:0} a {color:#086c7d} .wrap {max-width:760px;margin:auto;padding:26px 20px 64px}
+    header {display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:38px} .brand{font-weight:800;letter-spacing:.04em;color:#087e86} .back{text-decoration:none;font-size:.95rem}
+    .card {background:white;border:1px solid #e0e8ee;border-radius:22px;padding:clamp(24px,5vw,42px);box-shadow:0 12px 40px #132e420b}
+    .eyebrow {font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#087e86;font-weight:800} h1{font-size:clamp(1.8rem,5vw,2.7rem);margin:.5rem 0} p{line-height:1.55;color:#536675}
+    .search {width:100%;font:inherit;padding:14px 15px;border:1px solid #c9d7df;border-radius:12px;margin:18px 0 14px} .search:focus {outline:2px solid #0d8995;outline-offset:2px}
+    .meta {display:flex;justify-content:space-between;gap:12px;font-size:.88rem;color:#607280;margin:6px 0 16px}
+    ol {list-style:none;padding:0;margin:0;display:grid;gap:8px} li {display:flex;align-items:center;gap:13px;padding:13px 16px;border:1px solid #e7edf2;border-radius:11px;background:#fcfdfe;overflow-wrap:anywhere}
+    .number{color:#687e8d;min-width:30px;font-variant-numeric:tabular-nums} .empty{padding:20px;background:#f3f7fa;border-radius:12px} footer{font-size:.85rem;color:#607280;margin-top:22px}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header><div class="brand">PTU · ANALYTICS CONTEST</div><a class="back" href="/">← Back to contest</a></header>
+    <section class="card">
+      <div class="eyebrow">Contest entries</div>
+      <h1>Participant Names</h1>
+      <p>Check whether your name appears among the contest entries. Names only are shown here; phone numbers, ideas and uploaded files are not displayed.</p>
+      <label for="lookup"><strong>Find your name</strong></label>
+      <input id="lookup" class="search" type="search" placeholder="Type your name" autocomplete="off">
+      <div class="meta"><span id="status" role="status" aria-live="polite">Loading names…</span><span id="count"></span></div>
+      <ol id="names"></ol>
+      <p id="empty" class="empty" hidden>No matching names found. Check the spelling or try a shorter name.</p>
+      <footer>If you entered the contest but your name is missing, contact the organisers. Entries appear after they have been saved successfully.</footer>
+    </section>
+  </main>
+  <script>
+    const input = document.getElementById('lookup');
+    const list = document.getElementById('names');
+    const empty = document.getElementById('empty');
+    const status = document.getElementById('status');
+    const count = document.getElementById('count');
+    let allNames = [];
+    function show() {
+      const query = input.value.trim().toLocaleLowerCase();
+      const filtered = allNames.filter(name => name.toLocaleLowerCase().includes(query));
+      list.replaceChildren();
+      const fragment = document.createDocumentFragment();
+      filtered.forEach((name, i) => {
+        const item = document.createElement('li');
+        const index = document.createElement('span');
+        index.className = 'number'; index.textContent = `${i+1}.`;
+        const text = document.createElement('span'); text.textContent = name;
+        item.append(index, text); fragment.append(item);
+      });
+      list.append(fragment);
+      empty.hidden = filtered.length !== 0;
+      count.textContent = `${filtered.length} name${filtered.length === 1 ? '' : 's'} shown`;
+      status.textContent = query ? 'Filtered names' : 'Names in alphabetical order';
+    }
+    input.addEventListener('input', show);
+    (async () => {
+      try {
+        const response = await fetch('/.netlify/functions/participants', {cache:'no-store'});
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const body = await response.json();
+        if (!Array.isArray(body.names)) throw new Error('Unexpected response');
+        allNames = body.names.filter(x => typeof x === 'string');
+        show();
+      } catch (error) {
+        console.error('Participants unavailable', error);
+        status.textContent = 'Unable to load the participant list.';
+        count.textContent = '';
+        empty.textContent = 'Please try again later or contact the organisers.';
+        empty.hidden = false;
+      }
+    })();
+  </script>
+</body>
+</html>
